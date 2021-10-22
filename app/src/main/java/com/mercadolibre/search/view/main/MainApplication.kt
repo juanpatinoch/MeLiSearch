@@ -1,7 +1,6 @@
 package com.mercadolibre.search.view.main
 
 import android.app.Application
-import android.content.Context
 import com.mercadolibre.search.di.appComponent
 import com.mercadolibre.search.utils.Constants
 import com.mercadolibre.search.view.main.mediator.MainApplicationMediator

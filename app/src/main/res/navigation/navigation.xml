@@ -6,9 +6,9 @@
     app:startDestination="@id/mainActivity">
     <activity
         android:id="@+id/mainActivity"
-        android:name="com.mercadolibre.search.view.main.MainActivity"
+        android:name="com.mercadolibre.search.view.home.HomeActivity"
         android:label="MainActivity"
-        tools:layout="@layout/activity_main"/>
+        tools:layout="@layout/activity_home"/>
     <activity
         android:id="@+id/searchActivity"
         android:name="com.mercadolibre.search.view.search.SearchActivity"

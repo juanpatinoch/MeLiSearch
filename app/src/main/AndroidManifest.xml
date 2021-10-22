@@ -20,7 +20,7 @@
                 android:resource="@xml/searchable"/>
         </activity>
         <activity
-            android:name=".view.main.MainActivity"
+            android:name=".view.home.HomeActivity"
             android:exported="true"
             android:launchMode="singleTop">
             <intent-filter>
