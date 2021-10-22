@@ -3,7 +3,6 @@ package com.mercadolibre.search.view.search
 import android.app.SearchManager
 import android.content.Intent
 import android.os.Bundle
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.mercadolibre.search.databinding.ActivitySearchBinding
 import com.mercadolibre.search.view_model.search.SearchViewModel
@@ -30,7 +29,7 @@ class SearchActivity : AppCompatActivity() {
     private fun getSearchQuery() {
         if (Intent.ACTION_SEARCH == intent.action) {
             intent.getStringExtra(SearchManager.QUERY)?.also { query ->
-                Toast.makeText(this, "Query:" + query, Toast.LENGTH_SHORT).show()
+                viewModelSearch.searchByQuery(query)
             }
         }
     }

@@ -8,10 +8,10 @@ import retrofit2.http.Query
 
 interface ApiServices {
 
-    @GET("/sites/{site_id}")
+    @GET("/sites/{site_id}/search")
     suspend fun search(
         @Path("site_id") siteId: String,
-        @Query("search") query: String
+        @Query("q") query: String
     ): Response<SearchResponseDto>
 
 }
