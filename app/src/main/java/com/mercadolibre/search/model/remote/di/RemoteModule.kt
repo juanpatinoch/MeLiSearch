@@ -2,6 +2,7 @@ package com.mercadolibre.search.model.remote.di
 
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import com.mercadolibre.search.model.remote.ApiServices
+import com.mercadolibre.search.model.remote.search.SearchDataSource
 import com.squareup.moshi.Moshi
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -10,7 +11,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import java.util.concurrent.TimeUnit
 
-fun createRemoteDI(baseUrl: String) = module {
+fun createRemoteModule(baseUrl: String) = module {
 
     single { createService(get()) }
 
@@ -21,6 +22,8 @@ fun createRemoteDI(baseUrl: String) = module {
     single { createMoshiConverterFactory() }
 
     single { createMoshi() }
+
+    factory { SearchDataSource(get()) }
 
 }
 

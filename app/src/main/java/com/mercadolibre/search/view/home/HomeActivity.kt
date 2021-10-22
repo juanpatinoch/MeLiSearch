@@ -34,7 +34,6 @@ class HomeActivity : AppCompatActivity() {
     }
 
     private fun setViewModels() {
-        binding.viewModel = viewModelHome
         binding.layoutAppbar.viewModel = viewModelAppBar
     }
 

@@ -1,5 +1,7 @@
 package com.mercadolibre.search.di
 
+import com.mercadolibre.search.model.remote.di.createRemoteModule
+import com.mercadolibre.search.model.repository.di.repositoryModule
 import com.mercadolibre.search.view_model.app_bar.AppBarViewModel
 import com.mercadolibre.search.view_model.home.HomeViewModel
 import org.koin.android.viewmodel.dsl.viewModel
@@ -14,6 +16,8 @@ val homeModule = module {
 }
 
 fun appComponent(baseUrl: String) = listOf(
+    createRemoteModule(baseUrl),
+    repositoryModule,
     appBarModule,
     homeModule
 )

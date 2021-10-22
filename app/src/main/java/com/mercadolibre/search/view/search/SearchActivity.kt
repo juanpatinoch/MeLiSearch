@@ -2,17 +2,32 @@ package com.mercadolibre.search.view.search
 
 import android.app.SearchManager
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
-import com.mercadolibre.search.R
+import androidx.appcompat.app.AppCompatActivity
+import com.mercadolibre.search.databinding.ActivitySearchBinding
+import com.mercadolibre.search.view_model.search.SearchViewModel
+import org.koin.android.viewmodel.ext.android.viewModel
 
 class SearchActivity : AppCompatActivity() {
+
+    private lateinit var binding: ActivitySearchBinding
+
+    private val viewModelSearch: SearchViewModel by viewModel()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_search)
 
-        // Verify the action and get the query
+        setupBinding()
+        getSearchQuery()
+    }
+
+    private fun setupBinding() {
+        binding = ActivitySearchBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+    }
+
+    private fun getSearchQuery() {
         if (Intent.ACTION_SEARCH == intent.action) {
             intent.getStringExtra(SearchManager.QUERY)?.also { query ->
                 Toast.makeText(this, "Query:" + query, Toast.LENGTH_SHORT).show()
