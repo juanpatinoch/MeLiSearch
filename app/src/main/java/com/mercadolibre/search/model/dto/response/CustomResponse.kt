@@ -1,4 +1,4 @@
-package com.mercadolibre.search.model.dto
+package com.mercadolibre.search.model.dto.response
 
 sealed class CustomResponse<out T> {
     data class Success<out T>(val data: T) : CustomResponse<T>()
