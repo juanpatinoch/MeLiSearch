@@ -19,6 +19,11 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
     }
 
+    override fun onResume() {
+        super.onResume()
+        onSearchRequested()
+    }
+
     override fun onDestroy() {
         stopKoin()
         super.onDestroy()

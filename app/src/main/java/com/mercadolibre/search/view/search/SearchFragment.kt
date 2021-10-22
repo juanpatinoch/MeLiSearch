@@ -6,8 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.mercadolibre.search.databinding.FragmentSearchBinding
-import com.mercadolibre.search.view_model.search.SearchViewModel
-import org.koin.android.viewmodel.ext.android.viewModel
 
 class SearchFragment : Fragment() {
 

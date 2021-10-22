@@ -3,12 +3,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navigation"
-    app:startDestination="@id/searchFragment">
-
-    <fragment
-        android:id="@+id/searchFragment"
-        android:name="com.mercadolibre.search.view.search.SearchFragment"
-        android:label="SearchFragment"
-        tools:layout="@layout/fragment_search" />
-
+    app:startDestination="@id/mainActivity">
+    <activity
+        android:id="@+id/mainActivity"
+        android:name="com.mercadolibre.search.view.main.MainActivity"
+        android:label="MainActivity"
+        tools:layout="@layout/activity_main"/>
+    <activity
+        android:id="@+id/searchActivity"
+        android:name="com.mercadolibre.search.view.search.SearchActivity"
+        android:label="SearchActivity"
+        tools:layout="@layout/activity_search" />
 </navigation>
