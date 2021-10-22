@@ -28,7 +28,6 @@ class MainApplication : Application() {
             androidContext(this@MainApplication)
             modules(appComponent(Constants.baseUrl))
         }
-        val nada = this@MainApplication
     }
 
 }
