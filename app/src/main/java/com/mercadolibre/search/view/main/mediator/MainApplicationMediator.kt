@@ -6,4 +6,8 @@ interface MainApplicationMediator {
 
     fun getContext(): Context
 
+    fun setSearchEvent(onSearchEvent: (() -> Unit))
+
+    fun callSearchEvent()
+
 }
