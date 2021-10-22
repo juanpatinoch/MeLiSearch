@@ -13,7 +13,7 @@ class SearchFragment : Fragment() {
 
     private lateinit var binding: FragmentSearchBinding
 
-    private val viewModel: SearchViewModel by viewModel()
+    //private val viewModel: SearchViewModel by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -25,6 +25,6 @@ class SearchFragment : Fragment() {
 
     private fun setupBinding(inflater: LayoutInflater) {
         binding = FragmentSearchBinding.inflate(inflater)
-        binding.viewModel = viewModel
+        //binding.viewModel = viewModel
     }
 }
