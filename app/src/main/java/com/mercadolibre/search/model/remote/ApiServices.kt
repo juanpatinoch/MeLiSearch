@@ -11,7 +11,9 @@ interface ApiServices {
     @GET("/sites/{site_id}/search")
     suspend fun search(
         @Path("site_id") siteId: String,
-        @Query("q") query: String
+        @Query("q") query: String,
+        @Query("limit") limit: Int,
+        @Query("offset") offset: Int
     ): Response<SearchResponseDto>
 
 }

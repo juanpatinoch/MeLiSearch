@@ -1,20 +1,14 @@
 package com.mercadolibre.search.model.dto.search
 
-import com.squareup.moshi.Json
+import androidx.room.ColumnInfo
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 
+@Entity(tableName = "search")
 data class SearchDto(
-    @Json(name = "title") val title: String = "",
-    @Json(name = "price") val price: Int = 0,
-    @Json(name = "prices") val prices: PricesDto
+    @PrimaryKey
+    @ColumnInfo(name = "id") var id: String = "",
+    @ColumnInfo(name = "title") var title: String = "",
+    @ColumnInfo(name = "price") var price: Int = 0
 )
 
-data class PricesDto(
-    @Json(name = "prices") val pricesDetail: List<PricesDetailDto>
-)
-
-data class PricesDetailDto(
-    @Json(name = "id") val id: Int = 0,
-    @Json(name = "amount") val amount: Int = 0,
-    @Json(name = "type") val type: String = "",
-    @Json(name = "currency_id") val currencyId: String = ""
-)

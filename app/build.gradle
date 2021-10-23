@@ -70,12 +70,18 @@ dependencies {
     implementation 'org.koin:koin-android-viewmodel:2.0.1'
     implementation 'org.koin:koin-androidx-scope:2.0.1'
 
-    //Navigation
-    implementation 'androidx.navigation:navigation-fragment:2.2.0'
-    implementation 'androidx.navigation:navigation-ui:2.3.5'
+    //Coroutines
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.1'
 
-    //Courutines
-    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0'
+    //Room
+    kapt 'androidx.room:room-compiler:2.3.0'
+    implementation 'androidx.room:room-runtime:2.3.0'
+    implementation 'androidx.room:room-ktx:2.3.0'
+
+    //Pagination
+    //implementation 'androidx.paging:paging-runtime:3.0.0-alpha04'
+    implementation 'androidx.paging:paging-runtime:3.0.1'
+    //implementation 'androidx.paging:paging-runtime-ktx:3.1.0-beta01'
 
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
