@@ -1,7 +1,9 @@
 package com.mercadolibre.search.view.product_detail
 
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
+import com.bumptech.glide.Glide
 import com.mercadolibre.search.databinding.ActivityProductDetailBinding
 import com.mercadolibre.search.model.dto.search.ResultsDto
 
@@ -28,7 +30,14 @@ class ProductDetailActivity : AppCompatActivity() {
     }
 
     private fun setUiData() {
-        /*Glide.with(this).load(resultsDto.thumbnail).centerCrop().thumbnail(0.1f)
-            .into(binding.ivThumbnail)*/
+        try {
+            Glide.with(this)
+                .load(resultsDto.thumbnail)
+                .circleCrop()
+                .thumbnail(0.1f)
+                .into(binding.ivThumbnail)
+        } catch (e: Exception) {
+            Log.e("ERROR", e.message ?: "ERROR")
+        }
     }
 }

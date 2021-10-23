@@ -7,7 +7,7 @@ import java.io.Serializable
 data class SearchResponseDto(
     @Json(name = "paging") val paging: PagingDto,
     @Json(name = "results") val results: List<ResultsDto>
-)
+) : Serializable
 
 data class ResultsDto(
     @Json(name = "id") val id: String = "",
@@ -16,12 +16,16 @@ data class ResultsDto(
     @Json(name = "currency_id") val currencyId: String = "",
     @Json(name = "permalink") val permalink: String = "",
     @Json(name = "thumbnail") val thumbnail: String = "",
-    @Json(name = "prices") val prices: List<PricesDto>
+    @Json(name = "prices") val prices: PricesDto
 ) : Serializable
 
 data class PricesDto(
-    @Json(name = "id") val id: Int = 0,
+    @Json(name = "id") val id: String = "",
+    @Json(name = "prices") val pricesDetail: List<PricesDetailDto>
+) : Serializable
+
+data class PricesDetailDto(
     @Json(name = "amount") val amount: Int = 0,
     @Json(name = "type") val type: String = "",
     @Json(name = "currency_id") val currencyId: String = ""
-)
+) : Serializable
