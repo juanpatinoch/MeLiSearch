@@ -2,4 +2,5 @@
     <string name="app_name">MeLiSearch</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="search_hint">Buscar en Mercado Libre</string>
+    <string name="home_title">¿Qué quieres buscar?</string>
 </resources>

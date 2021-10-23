@@ -6,7 +6,6 @@ import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.mercadolibre.search.databinding.ActivityHomeBinding
-import com.mercadolibre.search.view.main.MainApplication
 import org.koin.core.context.stopKoin
 
 class HomeActivity : AppCompatActivity() {
@@ -16,8 +15,6 @@ class HomeActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setupBinding()
-        setSearchEvent()
-        hideNavigationBackIcon()
         setListeners()
     }
 
@@ -26,26 +23,18 @@ class HomeActivity : AppCompatActivity() {
         setContentView(binding.root)
     }
 
-    private fun setSearchEvent() {
-        MainApplication.mediator.setSearchEvent(onSearchEvent = ::onSearchRequested)
-    }
-
-    private fun hideNavigationBackIcon() {
-        binding.layoutAppbar.materialToolbar.navigationIcon = null
-    }
-
     private fun setListeners() {
         val searchManager = getSystemService(Context.SEARCH_SERVICE) as SearchManager
         searchManager.setOnDismissListener {
-            binding.layoutAppbar.materialToolbar.visibility = View.VISIBLE
+            binding.clContent.visibility = View.VISIBLE
         }
-        binding.layoutAppbar.clSearch.setOnClickListener {
+        binding.clSearch.setOnClickListener {
             onSearchRequested()
         }
     }
 
     override fun onSearchRequested(): Boolean {
-        binding.layoutAppbar.materialToolbar.visibility = View.GONE
+        binding.clContent.visibility = View.GONE
         return super.onSearchRequested()
     }
 
