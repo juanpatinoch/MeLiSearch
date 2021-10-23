@@ -1,8 +1,10 @@
 package com.mercadolibre.search.view.search
 
 import android.app.SearchManager
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
@@ -29,6 +31,7 @@ class SearchActivity : AppCompatActivity() {
         setupRecyclerView()
         startObserver()
         getSearchQuery()
+        setListeners()
     }
 
     private fun setupBinding() {
@@ -57,9 +60,26 @@ class SearchActivity : AppCompatActivity() {
         }
     }
 
+    private fun setListeners() {
+        val searchManager = getSystemService(Context.SEARCH_SERVICE) as SearchManager
+        searchManager.setOnDismissListener {
+            binding.layoutAppbar.materialToolbar.visibility = View.VISIBLE
+            binding.rvSearchItems.visibility = View.VISIBLE
+        }
+        binding.layoutAppbar.clSearch.setOnClickListener {
+            onSearchRequested()
+        }
+    }
+
     private fun handlePagingData(pagingData: PagingData<ResultsDto>) {
         lifecycleScope.launch {
             adapter.submitData(pagingData)
         }
+    }
+
+    override fun onSearchRequested(): Boolean {
+        binding.layoutAppbar.materialToolbar.visibility = View.GONE
+        binding.rvSearchItems.visibility = View.GONE
+        return super.onSearchRequested()
     }
 }
