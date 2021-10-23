@@ -15,6 +15,7 @@ class ProductDetailActivity : AppCompatActivity() {
 
         setupBinding()
         getInfoArguments()
+        setUiData()
     }
 
     private fun setupBinding() {
@@ -24,5 +25,10 @@ class ProductDetailActivity : AppCompatActivity() {
 
     private fun getInfoArguments() {
         resultsDto = intent.getSerializableExtra("resultsDto") as ResultsDto
+    }
+
+    private fun setUiData() {
+        /*Glide.with(this).load(resultsDto.thumbnail).centerCrop().thumbnail(0.1f)
+            .into(binding.ivThumbnail)*/
     }
 }
