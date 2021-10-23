@@ -21,6 +21,7 @@ class SearchActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivitySearchBinding
     private lateinit var adapter: SearchPagingDataAdapter
+    private lateinit var query: String
 
     private val viewModelSearch: SearchViewModel by viewModel()
     private val pagingDataObserver = Observer<PagingData<ResultsDto>> { handlePagingData(it) }
@@ -55,6 +56,8 @@ class SearchActivity : AppCompatActivity() {
     private fun getSearchQuery() {
         if (Intent.ACTION_SEARCH == intent.action) {
             intent.getStringExtra(SearchManager.QUERY)?.also { query ->
+                binding.layoutAppbar.tvSearch.text = query
+                this.query = query
                 viewModelSearch.searchByQuery(query)
             }
         }
@@ -80,6 +83,7 @@ class SearchActivity : AppCompatActivity() {
     override fun onSearchRequested(): Boolean {
         binding.layoutAppbar.materialToolbar.visibility = View.GONE
         binding.rvSearchItems.visibility = View.GONE
-        return super.onSearchRequested()
+        startSearch(query, false, null, false)
+        return true
     }
 }

@@ -51,12 +51,7 @@ dependencies {
     //Retrofit: API requests
     implementation 'com.squareup.retrofit2:retrofit:2.8.1'
 
-    //Gson: Convert JSON
-    //implementation 'com.squareup.retrofit2:converter-gson:2.5.0'
-
     //Moshi JSON library
-    //implementation 'com.squareup.moshi:moshi:1.8.0'
-    //implementation 'com.squareup.moshi:moshi-kotlin:1.8.0'
     implementation 'com.squareup.retrofit2:converter-moshi:2.8.1'
 
     //Kotlin Coroutine Adapter
@@ -74,9 +69,7 @@ dependencies {
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.1'
 
     //Pagination
-    //implementation 'androidx.paging:paging-runtime:3.0.0-alpha04'
     implementation 'androidx.paging:paging-runtime-ktx:3.0.1'
-    //implementation 'androidx.paging:paging-runtime-ktx:3.1.0-beta01'
 
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
