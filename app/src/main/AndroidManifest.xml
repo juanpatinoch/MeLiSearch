@@ -8,12 +8,12 @@
     <application
         android:name=".view.main.MainApplication"
         android:allowBackup="false"
-        android:usesCleartextTraffic="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/ic_launcher"
+        android:roundIcon="@drawable/ic_launcher"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.MeLiSearch">
+        android:theme="@style/Theme.MeLiSearch"
+        android:usesCleartextTraffic="true">
         <activity
             android:name=".view.product_detail.ProductDetailActivity"
             android:exported="true">
