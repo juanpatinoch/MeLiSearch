@@ -12,12 +12,14 @@ import androidx.paging.PagingData
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.mercadolibre.search.databinding.ActivitySearchBinding
 import com.mercadolibre.search.model.dto.search.ResultsDto
+import com.mercadolibre.search.view.product_detail.ProductDetailActivity
 import com.mercadolibre.search.view.search.adapter.SearchPagingDataAdapter
+import com.mercadolibre.search.view.search.adapter.SearchPagingDataAdapterInterface
 import com.mercadolibre.search.view_model.search.SearchViewModel
 import kotlinx.coroutines.launch
 import org.koin.android.viewmodel.ext.android.viewModel
 
-class SearchActivity : AppCompatActivity() {
+class SearchActivity : AppCompatActivity(), SearchPagingDataAdapterInterface {
 
     private lateinit var binding: ActivitySearchBinding
     private lateinit var adapter: SearchPagingDataAdapter
@@ -41,7 +43,7 @@ class SearchActivity : AppCompatActivity() {
     }
 
     private fun setupRecyclerView() {
-        adapter = SearchPagingDataAdapter()
+        adapter = SearchPagingDataAdapter(this)
         binding.apply {
             rvSearchItems.adapter = adapter
             rvSearchItems.layoutManager = LinearLayoutManager(this@SearchActivity)
@@ -85,5 +87,11 @@ class SearchActivity : AppCompatActivity() {
         binding.rvSearchItems.visibility = View.GONE
         startSearch(query, false, null, false)
         return true
+    }
+
+    override fun onSearchPagingItemClick(resultsDto: ResultsDto) {
+        val intent = Intent(this, ProductDetailActivity::class.java)
+        intent.putExtra("resultsDto", resultsDto)
+        startActivity(intent)
     }
 }

@@ -14,14 +14,24 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MeLiSearch">
         <activity
+            android:name=".view.product_detail.ProductDetailActivity"
+            android:exported="true">
+            <meta-data
+                android:name="android.app.default_searchable"
+                android:value=".view.search.SearchActivity" />
+        </activity>
+        <activity
             android:name=".view.search.SearchActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.SEARCH" />
             </intent-filter>
-            <meta-data android:name="android.app.searchable"
-                android:resource="@xml/searchable"/>
-            <meta-data android:name="android.app.default_searchable"
+
+            <meta-data
+                android:name="android.app.searchable"
+                android:resource="@xml/searchable" />
+            <meta-data
+                android:name="android.app.default_searchable"
                 android:value=".view.search.SearchActivity" />
         </activity>
         <activity
@@ -33,7 +43,9 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-            <meta-data android:name="android.app.default_searchable"
+
+            <meta-data
+                android:name="android.app.default_searchable"
                 android:value=".view.search.SearchActivity" />
         </activity>
     </application>

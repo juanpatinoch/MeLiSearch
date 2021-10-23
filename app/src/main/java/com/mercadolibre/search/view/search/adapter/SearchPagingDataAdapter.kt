@@ -8,7 +8,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.mercadolibre.search.databinding.ItemSearchBinding
 import com.mercadolibre.search.model.dto.search.ResultsDto
 
-class SearchPagingDataAdapter() : PagingDataAdapter<ResultsDto, SearchViewHolder>(USER_COMPARATOR) {
+class SearchPagingDataAdapter(
+    private val searchPagingDataAdapterInterface: SearchPagingDataAdapterInterface
+) : PagingDataAdapter<ResultsDto, SearchViewHolder>(USER_COMPARATOR) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SearchViewHolder {
         return SearchViewHolder.getInstance(parent)
@@ -18,6 +20,9 @@ class SearchPagingDataAdapter() : PagingDataAdapter<ResultsDto, SearchViewHolder
         val item = getItem(position)
         // Note that item may be null, ViewHolder must support binding null item as placeholder
         holder.binding.tvTitle.text = item?.title
+        holder.binding.clItemSearch.setOnClickListener {
+            searchPagingDataAdapterInterface.onSearchPagingItemClick(item!!)
+        }
     }
 }
 

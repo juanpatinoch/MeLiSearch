@@ -2,6 +2,7 @@ package com.mercadolibre.search.model.dto.search
 
 import com.mercadolibre.search.model.dto.paging.PagingDto
 import com.squareup.moshi.Json
+import java.io.Serializable
 
 data class SearchResponseDto(
     @Json(name = "paging") val paging: PagingDto,
@@ -11,14 +12,14 @@ data class SearchResponseDto(
 data class ResultsDto(
     @Json(name = "id") val id: String = "",
     @Json(name = "title") val title: String = "",
-    @Json(name = "price") val price: Int = 0
-)
+    @Json(name = "price") val price: Int = 0,
+    @Json(name = "currency_id") val currencyId: String = "",
+    @Json(name = "permalink") val permalink: String = "",
+    @Json(name = "thumbnail") val thumbnail: String = "",
+    @Json(name = "prices") val prices: List<PricesDto>
+) : Serializable
 
 data class PricesDto(
-    @Json(name = "prices") val pricesDetail: List<PricesDetailDto>
-)
-
-data class PricesDetailDto(
     @Json(name = "id") val id: Int = 0,
     @Json(name = "amount") val amount: Int = 0,
     @Json(name = "type") val type: String = "",
