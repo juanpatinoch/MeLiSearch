@@ -6,9 +6,9 @@ import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.mercadolibre.search.databinding.ItemSearchBinding
-import com.mercadolibre.search.model.dto.search.SearchDto
+import com.mercadolibre.search.model.dto.search.ResultsDto
 
-class SearchPagingDataAdapter() : PagingDataAdapter<SearchDto, SearchViewHolder>(USER_COMPARATOR) {
+class SearchPagingDataAdapter() : PagingDataAdapter<ResultsDto, SearchViewHolder>(USER_COMPARATOR) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SearchViewHolder {
         return SearchViewHolder.getInstance(parent)
@@ -33,12 +33,12 @@ class SearchViewHolder(val binding: ItemSearchBinding) :
     }
 }
 
-val USER_COMPARATOR = object : DiffUtil.ItemCallback<SearchDto>() {
-    override fun areItemsTheSame(oldItem: SearchDto, newItem: SearchDto): Boolean =
+val USER_COMPARATOR = object : DiffUtil.ItemCallback<ResultsDto>() {
+    override fun areItemsTheSame(oldItem: ResultsDto, newItem: ResultsDto): Boolean =
         // User ID serves as unique ID
         oldItem.id == newItem.id
 
-    override fun areContentsTheSame(oldItem: SearchDto, newItem: SearchDto): Boolean =
+    override fun areContentsTheSame(oldItem: ResultsDto, newItem: ResultsDto): Boolean =
         // Compare full contents (note: Java users should call .equals())
         oldItem == newItem
 }

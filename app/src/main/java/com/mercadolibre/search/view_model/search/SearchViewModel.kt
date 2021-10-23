@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
-import com.mercadolibre.search.model.dto.search.SearchDto
+import com.mercadolibre.search.model.dto.search.ResultsDto
 import com.mercadolibre.search.use_cases.SearchAPI
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collectLatest
@@ -15,8 +15,8 @@ import kotlinx.coroutines.launch
 
 class SearchViewModel(private val searchAPI: SearchAPI) : ViewModel() {
 
-    private val _pagingData = MutableLiveData<PagingData<SearchDto>>()
-    val pagingData: LiveData<PagingData<SearchDto>>
+    private val _pagingData = MutableLiveData<PagingData<ResultsDto>>()
+    val pagingData: LiveData<PagingData<ResultsDto>>
         get() = _pagingData
 
     fun searchByQuery(query: String) {
@@ -30,7 +30,7 @@ class SearchViewModel(private val searchAPI: SearchAPI) : ViewModel() {
         }
     }
 
-    private fun validateSearchResult(pagingData: PagingData<SearchDto>) {
+    private fun validateSearchResult(pagingData: PagingData<ResultsDto>) {
         viewModelScope.launch(Dispatchers.Main) {
             _pagingData.value = pagingData
         }

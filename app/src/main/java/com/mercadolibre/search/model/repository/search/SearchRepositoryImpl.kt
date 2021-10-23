@@ -3,7 +3,7 @@ package com.mercadolibre.search.model.repository.search
 import androidx.paging.ExperimentalPagingApi
 import androidx.paging.Pager
 import androidx.paging.PagingData
-import com.mercadolibre.search.model.dto.search.SearchDto
+import com.mercadolibre.search.model.dto.search.ResultsDto
 import com.mercadolibre.search.model.remote.search.SearchDataSource
 import com.mercadolibre.search.model.repository.search.paging_source.SearchPagingSource
 import com.mercadolibre.search.utils.Constants
@@ -14,7 +14,10 @@ class SearchRepositoryImpl(
 ) : SearchRepository {
 
     @ExperimentalPagingApi
-    override suspend fun searchByQuery(siteId: String, query: String): Flow<PagingData<SearchDto>> {
+    override suspend fun searchByQuery(
+        siteId: String,
+        query: String
+    ): Flow<PagingData<ResultsDto>> {
         return Pager(
             config = Constants.PAGING_CONFIG,
             pagingSourceFactory = {

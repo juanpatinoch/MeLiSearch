@@ -73,14 +73,9 @@ dependencies {
     //Coroutines
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.1'
 
-    //Room
-    kapt 'androidx.room:room-compiler:2.3.0'
-    implementation 'androidx.room:room-runtime:2.3.0'
-    implementation 'androidx.room:room-ktx:2.3.0'
-
     //Pagination
     //implementation 'androidx.paging:paging-runtime:3.0.0-alpha04'
-    implementation 'androidx.paging:paging-runtime:3.0.1'
+    implementation 'androidx.paging:paging-runtime-ktx:3.0.1'
     //implementation 'androidx.paging:paging-runtime-ktx:3.1.0-beta01'
 
     testImplementation 'junit:junit:4.+'

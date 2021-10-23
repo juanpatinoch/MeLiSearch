@@ -9,7 +9,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.paging.PagingData
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.mercadolibre.search.databinding.ActivitySearchBinding
-import com.mercadolibre.search.model.dto.search.SearchDto
+import com.mercadolibre.search.model.dto.search.ResultsDto
 import com.mercadolibre.search.view.search.adapter.SearchPagingDataAdapter
 import com.mercadolibre.search.view_model.search.SearchViewModel
 import kotlinx.coroutines.launch
@@ -21,7 +21,7 @@ class SearchActivity : AppCompatActivity() {
     private lateinit var adapter: SearchPagingDataAdapter
 
     private val viewModelSearch: SearchViewModel by viewModel()
-    private val pagingDataObserver = Observer<PagingData<SearchDto>> { handlePagingData(it) }
+    private val pagingDataObserver = Observer<PagingData<ResultsDto>> { handlePagingData(it) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -57,7 +57,7 @@ class SearchActivity : AppCompatActivity() {
         }
     }
 
-    private fun handlePagingData(pagingData: PagingData<SearchDto>) {
+    private fun handlePagingData(pagingData: PagingData<ResultsDto>) {
         lifecycleScope.launch {
             adapter.submitData(pagingData)
         }
