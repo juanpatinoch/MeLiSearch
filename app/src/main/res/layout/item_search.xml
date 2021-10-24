@@ -40,6 +40,21 @@
                 app:layout_constraintTop_toBottomOf="@+id/ivItemSearchThumbnail" />
 
             <TextView
+                android:id="@+id/tvItemSearchOriginalAmount"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_8"
+                android:layout_marginTop="@dimen/margin_8"
+                android:layout_marginEnd="@dimen/margin_8"
+                android:ellipsize="marquee"
+                android:singleLine="true"
+                android:textColor="@color/gray_1"
+                android:textSize="@dimen/text_description_size"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvItemSearchTitle" />
+
+            <TextView
                 android:id="@+id/tvItemSearchAmount"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -53,7 +68,7 @@
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvItemSearchTitle" />
+                app:layout_constraintTop_toBottomOf="@+id/tvItemSearchOriginalAmount" />
 
             <TextView
                 android:id="@+id/tvItemSearchInstallments"

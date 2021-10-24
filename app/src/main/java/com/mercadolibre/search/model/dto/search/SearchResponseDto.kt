@@ -13,6 +13,7 @@ data class ResultsDto(
     @field:Json(name = "id") val id: String = "",
     @field:Json(name = "title") val title: String = "",
     @field:Json(name = "price") val price: Double = 0.0,
+    @field:Json(name = "original_price") val originalPrice: Double?,
     @field:Json(name = "currency_id") val currencyId: String = "",
     @field:Json(name = "permalink") val permalink: String = "",
     @field:Json(name = "thumbnail") val thumbnail: String = "",
@@ -28,4 +29,4 @@ data class InstallmentsDto(
 
 data class ShippingDto(
     @field:Json(name = "free_shipping") val freeShipping: Boolean = false
-)
+) : Serializable

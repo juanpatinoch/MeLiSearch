@@ -1,6 +1,7 @@
 package com.mercadolibre.search.view.search.adapter
 
 import android.content.Context
+import android.graphics.Paint
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -33,6 +34,7 @@ class SearchPagingDataAdapter(
             holder.binding.tvItemSearchAmount.text =
                 Utils.formatAmountToCurrency(item.price, item.currencyId)
             Log.e("steps", "step 1")
+            setStandardPrice(item, holder.binding.tvItemSearchOriginalAmount)
             setInstallments(item, holder.binding.tvItemSearchInstallments)
             setFreeShipping(item, holder.binding.tvItemSearchShipping)
             setImage(item.thumbnail, holder.binding.ivItemSearchThumbnail)
@@ -41,6 +43,17 @@ class SearchPagingDataAdapter(
             }
         } catch (e: Exception) {
             Log.e("ERROR", e.message ?: "ERROR")
+        }
+    }
+
+    private fun setStandardPrice(resultsDto: ResultsDto, tvOriginalAmount: TextView) {
+        if (resultsDto.originalPrice != null) {
+            tvOriginalAmount.text =
+                Utils.formatAmountToCurrency(resultsDto.originalPrice, resultsDto.currencyId)
+            tvOriginalAmount.paint.flags = Paint.STRIKE_THRU_TEXT_FLAG
+            tvOriginalAmount.visibility = View.VISIBLE
+        } else {
+            tvOriginalAmount.visibility = View.GONE
         }
     }
 
@@ -67,8 +80,7 @@ class SearchPagingDataAdapter(
         if (resultsDto.shipping.freeShipping) {
             tvShipping.text = context.getText(R.string.free_shipping)
             tvShipping.visibility = View.VISIBLE
-        }
-        else {
+        } else {
             tvShipping.visibility = View.GONE
         }
     }

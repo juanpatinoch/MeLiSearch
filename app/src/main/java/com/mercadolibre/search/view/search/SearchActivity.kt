@@ -57,7 +57,7 @@ class SearchActivity : AppCompatActivity(), SearchPagingDataAdapterInterface {
     private fun getSearchQuery() {
         if (Intent.ACTION_SEARCH == intent.action) {
             intent.getStringExtra(SearchManager.QUERY)?.also { query ->
-                binding.tvSearchTitle.text = query.trim().uppercase()
+                binding.layoutAppbar.tvSearchTitle.text = query.trim().uppercase()
                 this.query = query
                 viewModelSearch.searchByQuery(query)
             }
@@ -69,10 +69,10 @@ class SearchActivity : AppCompatActivity(), SearchPagingDataAdapterInterface {
         searchManager.setOnDismissListener {
             binding.clSearchContent.visibility = View.VISIBLE
         }
-        binding.ivSearchBack.setOnClickListener {
+        binding.layoutAppbar.ivSearchBack.setOnClickListener {
             finish()
         }
-        binding.ivSearch.setOnClickListener {
+        binding.layoutAppbar.ivSearch.setOnClickListener {
             onSearchRequested()
         }
     }

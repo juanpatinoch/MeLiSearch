@@ -4,4 +4,5 @@
     <string name="home_title">¿Qué quieres buscar?</string>
     <string name="product_detail_installments">en %s x %s</string>
     <string name="free_shipping">Envío gratis</string>
+    <string name="product_detail_title">Producto</string>
 </resources>
