@@ -10,6 +10,8 @@ object Constants {
     val PAGING_CONFIG = PagingConfig(pageSize = pagingPageSize, enablePlaceholders = false)
 
     //SaveInstanceStates
-    const val initKoin = "initKoin"
-    const val isSearchOpen = "isSearchOpen"
+    const val homeInitKoin = "initKoin"
+    const val homeIsSearchOpen = "isSearchOpen"
+    const val searchRecyclerView = "searchRecyclerView"
+    const val searchIsSearchOpen = "isSearchOpen"
 }

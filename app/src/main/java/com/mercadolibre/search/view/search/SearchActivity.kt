@@ -4,6 +4,8 @@ import android.app.SearchManager
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.os.Parcelable
+import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
@@ -12,6 +14,7 @@ import androidx.paging.PagingData
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.mercadolibre.search.databinding.ActivitySearchBinding
 import com.mercadolibre.search.model.dto.search.ResultsDto
+import com.mercadolibre.search.utils.Constants
 import com.mercadolibre.search.view.product_detail.ProductDetailActivity
 import com.mercadolibre.search.view.search.adapter.SearchPagingDataAdapter
 import com.mercadolibre.search.view.search.adapter.SearchPagingDataAdapterInterface
@@ -27,13 +30,14 @@ class SearchActivity : AppCompatActivity(), SearchPagingDataAdapterInterface {
 
     private val viewModelSearch: SearchViewModel by viewModel()
     private val pagingDataObserver = Observer<PagingData<ResultsDto>> { handlePagingData(it) }
+    private var isSearchOpen: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setupBinding()
         setupRecyclerView()
         startObserver()
-        getSearchQuery()
+        getSearchQuery(savedInstanceState)
         setListeners()
     }
 
@@ -54,12 +58,13 @@ class SearchActivity : AppCompatActivity(), SearchPagingDataAdapterInterface {
         viewModelSearch.pagingData.observe(this, pagingDataObserver)
     }
 
-    private fun getSearchQuery() {
+    private fun getSearchQuery(savedInstanceState: Bundle?) {
         if (Intent.ACTION_SEARCH == intent.action) {
             intent.getStringExtra(SearchManager.QUERY)?.also { query ->
                 binding.layoutAppbar.tvSearchTitle.text = query.trim().uppercase()
                 this.query = query
-                viewModelSearch.searchByQuery(query)
+                if (savedInstanceState == null)
+                    viewModelSearch.searchByQuery(query)
             }
         }
     }
@@ -68,6 +73,7 @@ class SearchActivity : AppCompatActivity(), SearchPagingDataAdapterInterface {
         val searchManager = getSystemService(Context.SEARCH_SERVICE) as SearchManager
         searchManager.setOnDismissListener {
             binding.clSearchContent.visibility = View.VISIBLE
+            isSearchOpen = false
         }
         binding.layoutAppbar.ivSearchBack.setOnClickListener {
             finish()
@@ -79,6 +85,7 @@ class SearchActivity : AppCompatActivity(), SearchPagingDataAdapterInterface {
 
     private fun handlePagingData(pagingData: PagingData<ResultsDto>) {
         lifecycleScope.launch {
+            Log.d("handlePagingData", "Llega data")
             adapter.submitData(pagingData)
         }
     }
@@ -86,6 +93,7 @@ class SearchActivity : AppCompatActivity(), SearchPagingDataAdapterInterface {
     override fun onSearchRequested(): Boolean {
         binding.clSearchContent.visibility = View.GONE
         startSearch(query, false, null, false)
+        isSearchOpen = true
         return true
     }
 
@@ -93,5 +101,24 @@ class SearchActivity : AppCompatActivity(), SearchPagingDataAdapterInterface {
         val intent = Intent(this, ProductDetailActivity::class.java)
         intent.putExtra("resultsDto", resultsDto)
         startActivity(intent)
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putBoolean(Constants.searchIsSearchOpen, isSearchOpen)
+        outState.putParcelable(
+            Constants.searchRecyclerView,
+            binding.rvSearchItems.layoutManager?.onSaveInstanceState()
+        )
+    }
+
+    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+        super.onRestoreInstanceState(savedInstanceState)
+        val rvState: Parcelable? = savedInstanceState.getParcelable(Constants.searchRecyclerView)
+        binding.rvSearchItems.layoutManager?.onRestoreInstanceState(rvState)
+        isSearchOpen = savedInstanceState.getBoolean(Constants.searchIsSearchOpen)
+        if (isSearchOpen)
+            onSearchRequested()
+
     }
 }

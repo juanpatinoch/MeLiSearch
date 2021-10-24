@@ -59,15 +59,15 @@ class HomeActivity : AppCompatActivity() {
 
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
         super.onRestoreInstanceState(savedInstanceState)
-        isSearchOpen = savedInstanceState.getBoolean(Constants.isSearchOpen)
+        isSearchOpen = savedInstanceState.getBoolean(Constants.homeIsSearchOpen)
         if (isSearchOpen)
             onSearchRequested()
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        outState.putBoolean(Constants.initKoin, false)
-        outState.putBoolean(Constants.isSearchOpen, isSearchOpen)
+        outState.putBoolean(Constants.homeInitKoin, false)
+        outState.putBoolean(Constants.homeIsSearchOpen, isSearchOpen)
     }
 
     override fun onDestroy() {
