@@ -18,7 +18,8 @@ data class ResultsDto(
     @field:Json(name = "permalink") val permalink: String = "",
     @field:Json(name = "thumbnail") val thumbnail: String = "",
     @field:Json(name = "installments") val installments: InstallmentsDto?,
-    @field:Json(name = "shipping") val shipping: ShippingDto
+    @field:Json(name = "shipping") val shipping: ShippingDto,
+    @field:Json(name = "attributes") val attributes: List<AttributesDto>
 ) : Serializable
 
 data class InstallmentsDto(
@@ -29,4 +30,9 @@ data class InstallmentsDto(
 
 data class ShippingDto(
     @field:Json(name = "free_shipping") val freeShipping: Boolean = false
+) : Serializable
+
+data class AttributesDto(
+    @field:Json(name = "name") val name: String,
+    @field:Json(name = "value_name") val valueName: String,
 ) : Serializable

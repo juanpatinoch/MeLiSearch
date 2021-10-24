@@ -5,4 +5,5 @@
     <string name="product_detail_installments">en %s x %s</string>
     <string name="free_shipping">Envío gratis</string>
     <string name="product_detail_title">Producto</string>
+    <string name="product_detail_attributes">Características del producto</string>
 </resources>
