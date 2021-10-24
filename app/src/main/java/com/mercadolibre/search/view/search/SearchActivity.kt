@@ -34,6 +34,7 @@ class SearchActivity : AppCompatActivity(), SearchPagingDataAdapterInterface {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         setupBinding()
         setupRecyclerView()
         startObserver()
@@ -119,6 +120,5 @@ class SearchActivity : AppCompatActivity(), SearchPagingDataAdapterInterface {
         isSearchOpen = savedInstanceState.getBoolean(Constants.searchIsSearchOpen)
         if (isSearchOpen)
             onSearchRequested()
-
     }
 }

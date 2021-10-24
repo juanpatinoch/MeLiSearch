@@ -12,6 +12,7 @@ import com.bumptech.glide.Glide
 import com.mercadolibre.search.R
 import com.mercadolibre.search.databinding.ActivityProductDetailBinding
 import com.mercadolibre.search.model.dto.search.ResultsDto
+import com.mercadolibre.search.utils.Constants
 import com.mercadolibre.search.utils.Utils
 import com.mercadolibre.search.view.product_detail.adapter.ProductDetailAttributesAdapter
 
@@ -19,6 +20,8 @@ class ProductDetailActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityProductDetailBinding
     private lateinit var resultsDto: ResultsDto
+
+    private var isSearchOpen = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -109,6 +112,7 @@ class ProductDetailActivity : AppCompatActivity() {
         val searchManager = getSystemService(Context.SEARCH_SERVICE) as SearchManager
         searchManager.setOnDismissListener {
             binding.svProductDetailContent.visibility = View.VISIBLE
+            isSearchOpen = false
         }
         binding.layoutAppbar.ivSearchBack.setOnClickListener {
             finish()
@@ -120,6 +124,19 @@ class ProductDetailActivity : AppCompatActivity() {
 
     override fun onSearchRequested(): Boolean {
         binding.svProductDetailContent.visibility = View.GONE
+        isSearchOpen = true
         return super.onSearchRequested()
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putBoolean(Constants.productDetailIsSearchOpen, isSearchOpen)
+    }
+
+    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+        super.onRestoreInstanceState(savedInstanceState)
+        isSearchOpen = savedInstanceState.getBoolean(Constants.productDetailIsSearchOpen)
+        if (isSearchOpen)
+            onSearchRequested()
     }
 }

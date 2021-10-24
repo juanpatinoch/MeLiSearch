@@ -14,4 +14,5 @@ object Constants {
     const val homeIsSearchOpen = "isSearchOpen"
     const val searchRecyclerView = "searchRecyclerView"
     const val searchIsSearchOpen = "isSearchOpen"
+    const val productDetailIsSearchOpen = "productDetailIsSearchOpen"
 }
