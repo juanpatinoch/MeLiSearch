@@ -47,7 +47,6 @@ class SearchActivity : AppCompatActivity(), SearchPagingDataAdapterInterface {
         binding.apply {
             rvSearchItems.adapter = adapter
             rvSearchItems.layoutManager = LinearLayoutManager(this@SearchActivity)
-
         }
     }
 
@@ -58,7 +57,7 @@ class SearchActivity : AppCompatActivity(), SearchPagingDataAdapterInterface {
     private fun getSearchQuery() {
         if (Intent.ACTION_SEARCH == intent.action) {
             intent.getStringExtra(SearchManager.QUERY)?.also { query ->
-                binding.layoutAppbar.tvSearch.text = query
+                binding.tvSearchTitle.text = query.trim().uppercase()
                 this.query = query
                 viewModelSearch.searchByQuery(query)
             }
@@ -68,10 +67,12 @@ class SearchActivity : AppCompatActivity(), SearchPagingDataAdapterInterface {
     private fun setListeners() {
         val searchManager = getSystemService(Context.SEARCH_SERVICE) as SearchManager
         searchManager.setOnDismissListener {
-            binding.layoutAppbar.materialToolbar.visibility = View.VISIBLE
-            binding.rvSearchItems.visibility = View.VISIBLE
+            binding.clSearchContent.visibility = View.VISIBLE
         }
-        binding.layoutAppbar.clSearch.setOnClickListener {
+        binding.ivSearchBack.setOnClickListener {
+            finish()
+        }
+        binding.ivSearch.setOnClickListener {
             onSearchRequested()
         }
     }
@@ -83,8 +84,7 @@ class SearchActivity : AppCompatActivity(), SearchPagingDataAdapterInterface {
     }
 
     override fun onSearchRequested(): Boolean {
-        binding.layoutAppbar.materialToolbar.visibility = View.GONE
-        binding.rvSearchItems.visibility = View.GONE
+        binding.clSearchContent.visibility = View.GONE
         startSearch(query, false, null, false)
         return true
     }
