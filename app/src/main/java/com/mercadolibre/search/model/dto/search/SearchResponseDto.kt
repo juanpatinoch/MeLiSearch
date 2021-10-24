@@ -5,27 +5,27 @@ import com.squareup.moshi.Json
 import java.io.Serializable
 
 data class SearchResponseDto(
-    @Json(name = "paging") val paging: PagingDto,
-    @Json(name = "results") val results: List<ResultsDto>
+    @field:Json(name = "paging") val paging: PagingDto,
+    @field:Json(name = "results") val results: List<ResultsDto>
 ) : Serializable
 
 data class ResultsDto(
-    @Json(name = "id") val id: String = "",
-    @Json(name = "title") val title: String = "",
-    @Json(name = "price") val price: Int = 0,
-    @Json(name = "currency_id") val currencyId: String = "",
-    @Json(name = "permalink") val permalink: String = "",
-    @Json(name = "thumbnail") val thumbnail: String = "",
-    @Json(name = "prices") val prices: PricesDto
+    @field:Json(name = "id") val id: String = "",
+    @field:Json(name = "title") val title: String = "",
+    @field:Json(name = "price") val price: Double = 0.0,
+    @field:Json(name = "currency_id") val currencyId: String = "",
+    @field:Json(name = "permalink") val permalink: String = "",
+    @field:Json(name = "thumbnail") val thumbnail: String = "",
+    @field:Json(name = "installments") val installments: InstallmentsDto?,
+    @field:Json(name = "shipping") val shipping: ShippingDto
 ) : Serializable
 
-data class PricesDto(
-    @Json(name = "id") val id: String = "",
-    @Json(name = "prices") val pricesDetail: List<PricesDetailDto>
+data class InstallmentsDto(
+    @field:Json(name = "quantity") val quantity: Int?,
+    @field:Json(name = "amount") val amount: Double?,
+    @field:Json(name = "currency_id") val currencyId: String?
 ) : Serializable
 
-data class PricesDetailDto(
-    @Json(name = "amount") val amount: Int = 0,
-    @Json(name = "type") val type: String = "",
-    @Json(name = "currency_id") val currencyId: String = ""
-) : Serializable
+data class ShippingDto(
+    @field:Json(name = "free_shipping") val freeShipping: Boolean = false
+)

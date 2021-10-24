@@ -43,7 +43,7 @@ class SearchActivity : AppCompatActivity(), SearchPagingDataAdapterInterface {
     }
 
     private fun setupRecyclerView() {
-        adapter = SearchPagingDataAdapter(this)
+        adapter = SearchPagingDataAdapter(this, this)
         binding.apply {
             rvSearchItems.adapter = adapter
             rvSearchItems.layoutManager = LinearLayoutManager(this@SearchActivity)

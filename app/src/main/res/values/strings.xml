@@ -2,4 +2,6 @@
     <string name="app_name">Mercado Libre</string>
     <string name="search_hint">Buscar en Mercado Libre</string>
     <string name="home_title">¿Qué quieres buscar?</string>
+    <string name="product_detail_installments">en %s x %s</string>
+    <string name="free_shipping">Envío gratis</string>
 </resources>
