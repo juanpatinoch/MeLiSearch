@@ -13,6 +13,7 @@ class MainApplication : Application() {
 
     override fun onCreate() {
         super.onCreate()
+
         mediator = MainApplicationMediatorImpl(this)
         initKoin()
     }
@@ -29,5 +30,4 @@ class MainApplication : Application() {
             modules(appComponent(Constants.baseUrl))
         }
     }
-
 }
