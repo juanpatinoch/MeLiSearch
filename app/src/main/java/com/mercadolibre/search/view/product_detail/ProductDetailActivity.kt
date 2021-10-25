@@ -3,12 +3,16 @@ package com.mercadolibre.search.view.product_detail
 import android.app.SearchManager
 import android.content.Context
 import android.graphics.Paint
+import android.graphics.drawable.Drawable
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.DataSource
+import com.bumptech.glide.load.engine.GlideException
+import com.bumptech.glide.request.RequestListener
+import com.bumptech.glide.request.target.Target
 import com.mercadolibre.search.R
 import com.mercadolibre.search.databinding.ActivityProductDetailBinding
 import com.mercadolibre.search.model.dto.search.ResultsDto
@@ -89,14 +93,31 @@ class ProductDetailActivity : AppCompatActivity() {
     }
 
     private fun setImage() {
-        try {
-            Glide.with(this)
-                .load(resultsDto.thumbnail)
-                .centerCrop()
-                .into(binding.ivThumbnail)
-        } catch (e: Exception) {
-            Log.e("ERROR", e.message ?: "ERROR")
-        }
+        Glide.with(this)
+            .load(resultsDto.thumbnail)
+            .centerCrop()
+            .listener(object : RequestListener<Drawable> {
+                override fun onLoadFailed(
+                    e: GlideException?,
+                    model: Any?,
+                    target: Target<Drawable>?,
+                    isFirstResource: Boolean
+                ): Boolean {
+                    binding.ivProductDetailRefresh.visibility = View.VISIBLE
+                    return true
+                }
+
+                override fun onResourceReady(
+                    resource: Drawable?,
+                    model: Any?,
+                    target: Target<Drawable>?,
+                    dataSource: DataSource?,
+                    isFirstResource: Boolean
+                ): Boolean {
+                    return false
+                }
+            })
+            .into(binding.ivThumbnail)
     }
 
     private fun setupRecyclerView() {
@@ -119,6 +140,10 @@ class ProductDetailActivity : AppCompatActivity() {
         }
         binding.layoutAppbar.ivSearch.setOnClickListener {
             onSearchRequested()
+        }
+        binding.ivProductDetailRefresh.setOnClickListener {
+            binding.ivProductDetailRefresh.visibility = View.GONE
+            setImage()
         }
     }
 
