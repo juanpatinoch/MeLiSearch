@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
     <style name="Theme.MeLiSearch" parent="Theme.MaterialComponents.Light.NoActionBar">
         <!--   color for the app bar and other primary UI elements -->
@@ -20,6 +20,8 @@
         <item name="bottomSheetDialogTheme">@style/AppBottomSheetDialogTheme</item>
         <!-- Font family -->
         <item name="android:fontFamily">@font/inter</item>
+        <!-- Disabled dark mode -->
+        <item name="android:forceDarkAllowed" tools:targetApi="q">false</item>
     </style>
 
     <style name="AppBottomSheetDialogTheme" parent="Theme.Design.Light.BottomSheetDialog">
