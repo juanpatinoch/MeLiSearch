@@ -6,4 +6,6 @@
     <string name="free_shipping">Envío gratis</string>
     <string name="product_detail_title">Producto</string>
     <string name="product_detail_attributes">Características del producto</string>
+    <string name="search_empty_state">No se encontraron resultados para este producto. Intenta con otro.</string>
+    <string name="search_error">%s\n\nHa ocurrido un error. Puedes reintentar la búsqueda tocando la pantalla.</string>
 </resources>

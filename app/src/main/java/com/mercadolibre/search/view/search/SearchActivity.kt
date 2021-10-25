@@ -10,8 +10,10 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
+import androidx.paging.LoadState
 import androidx.paging.PagingData
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.mercadolibre.search.R
 import com.mercadolibre.search.databinding.ActivitySearchBinding
 import com.mercadolibre.search.model.dto.search.ResultsDto
 import com.mercadolibre.search.utils.Constants
@@ -19,6 +21,7 @@ import com.mercadolibre.search.view.product_detail.ProductDetailActivity
 import com.mercadolibre.search.view.search.adapter.SearchPagingDataAdapter
 import com.mercadolibre.search.view.search.adapter.SearchPagingDataAdapterInterface
 import com.mercadolibre.search.view_model.search.SearchViewModel
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import org.koin.android.viewmodel.ext.android.viewModel
 
@@ -36,6 +39,7 @@ class SearchActivity : AppCompatActivity(), SearchPagingDataAdapterInterface {
         super.onCreate(savedInstanceState)
 
         setupBinding()
+        setupAdapter()
         setupRecyclerView()
         startObserver()
         getSearchQuery(savedInstanceState)
@@ -47,8 +51,98 @@ class SearchActivity : AppCompatActivity(), SearchPagingDataAdapterInterface {
         setContentView(binding.root)
     }
 
-    private fun setupRecyclerView() {
+    private fun setupAdapter() {
         adapter = SearchPagingDataAdapter(this, this)
+        lifecycleScope.launch {
+            adapter.loadStateFlow.collectLatest { loadState ->
+                val error = when {
+                    loadState.prepend is LoadState.Error -> loadState.prepend as LoadState.Error
+                    loadState.append is LoadState.Error -> loadState.append as LoadState.Error
+                    loadState.refresh is LoadState.Error -> loadState.refresh as LoadState.Error
+                    else -> null
+                }
+                if (loadState.refresh is LoadState.Loading) {
+                    showLoading()
+                    Log.e("loadState", "showLoading")
+                }
+                if (error != null) {
+                    binding.tvError.text =
+                        String.format(getString(R.string.search_error), error.error.message)
+                    showError()
+                    Log.e("loadState", "showError")
+                } else if (loadState.append.endOfPaginationReached && adapter.itemCount > 0) {
+                    hideLoading()
+                    Log.e("loadState", "hideLoading")
+                } else if (loadState.append.endOfPaginationReached && adapter.itemCount == 0) {
+                    showEmptyState()
+                    Log.e("loadState", "showEmptyState")
+                }
+            }
+        }
+    }
+
+    private fun showLoading() {
+        binding.apply {
+            showRecyclerView()
+            hideEmptyState()
+            hideError()
+            pbSearch.visibility = View.VISIBLE
+        }
+    }
+
+    private fun hideLoading() {
+        binding.apply {
+            showRecyclerView()
+            hideEmptyState()
+            hideError()
+            pbSearch.visibility = View.GONE
+        }
+    }
+
+    private fun showRecyclerView() {
+        binding.apply {
+            hideEmptyState()
+            hideError()
+            clRecyclerView.visibility = View.VISIBLE
+        }
+    }
+
+    private fun hideRecyclerView() {
+        binding.apply {
+            clRecyclerView.visibility = View.GONE
+        }
+    }
+
+    private fun showError() {
+        binding.apply {
+            hideEmptyState()
+            hideRecyclerView()
+            clError.visibility = View.VISIBLE
+        }
+    }
+
+    private fun hideError() {
+        binding.apply {
+            clError.visibility = View.GONE
+        }
+    }
+
+    private fun showEmptyState() {
+        binding.apply {
+            hideError()
+            hideRecyclerView()
+            clEmptyState.visibility = View.VISIBLE
+        }
+    }
+
+    private fun hideEmptyState() {
+        binding.apply {
+            clEmptyState.visibility = View.GONE
+        }
+    }
+
+
+    private fun setupRecyclerView() {
         binding.apply {
             rvSearchItems.adapter = adapter
             rvSearchItems.layoutManager = LinearLayoutManager(this@SearchActivity)
@@ -81,6 +175,10 @@ class SearchActivity : AppCompatActivity(), SearchPagingDataAdapterInterface {
         }
         binding.layoutAppbar.ivSearch.setOnClickListener {
             onSearchRequested()
+        }
+        binding.clError.setOnClickListener {
+            showRecyclerView()
+            viewModelSearch.searchByQuery(query)
         }
     }
 

@@ -1,5 +1,6 @@
 package com.mercadolibre.search.model.repository.search.paging_source
 
+import android.util.Log
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.mercadolibre.search.model.dto.response.CustomResponse
@@ -34,6 +35,7 @@ class SearchPagingSource(
             val prevKey = if (pageNumber > 0) pageNumber - 1 else null
             when (response) {
                 is CustomResponse.Failure -> {
+                    Log.e("CustomResponse.Failure", response.exception.toString())
                     throw response.exception
                 }
                 is CustomResponse.Success -> {
@@ -47,8 +49,10 @@ class SearchPagingSource(
             }
 
         } catch (e: IOException) {
+            Log.e("IOException", e.toString())
             LoadResult.Error(e)
         } catch (e: HttpException) {
+            Log.e("HttpException", e.toString())
             LoadResult.Error(e)
         }
     }

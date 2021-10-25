@@ -16,6 +16,18 @@
             android:layout_height="match_parent">
 
             <ImageView
+                android:id="@+id/ivItemSearchRefresh"
+                android:layout_width="@dimen/ic_refresh_size"
+                android:layout_height="@dimen/ic_refresh_size"
+                android:contentDescription="@string/search_hint"
+                android:visibility="gone"
+                app:layout_constraintBottom_toTopOf="@+id/tvItemSearchTitle"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/ivItemSearchThumbnail"
+                app:srcCompat="@drawable/ic_reload" />
+
+            <ImageView
                 android:id="@+id/ivItemSearchThumbnail"
                 android:layout_width="0dp"
                 android:layout_height="200dp"

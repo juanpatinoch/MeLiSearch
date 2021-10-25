@@ -8,6 +8,7 @@ import com.mercadolibre.search.model.remote.search.SearchDataSource
 import com.mercadolibre.search.model.repository.search.paging_source.SearchPagingSource
 import com.mercadolibre.search.utils.Constants
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.onErrorCollect
 
 class SearchRepositoryImpl(
     private val searchDataSource: SearchDataSource
@@ -24,7 +25,7 @@ class SearchRepositoryImpl(
                 SearchPagingSource(
                     siteId = siteId,
                     query = query,
-                    searchDataSource = searchDataSource
+                    searchDataSource = searchDataSource,
                 )
             },
         ).flow

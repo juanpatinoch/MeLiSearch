@@ -18,7 +18,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/ic_back"
-            app:tint="@color/gray_2" />
+            />
 
         <TextView
             android:id="@+id/tvSearchTitle"
@@ -47,8 +47,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_search"
-            app:tint="@color/gray_2" />
+            app:srcCompat="@drawable/ic_search" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>

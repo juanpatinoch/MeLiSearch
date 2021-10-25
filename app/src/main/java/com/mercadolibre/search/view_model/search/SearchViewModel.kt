@@ -1,5 +1,6 @@
 package com.mercadolibre.search.view_model.search
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -8,6 +9,7 @@ import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import com.mercadolibre.search.model.dto.search.ResultsDto
 import com.mercadolibre.search.use_cases.SearchAPI
+import com.mercadolibre.search.utils.Constants
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.distinctUntilChanged
@@ -21,7 +23,7 @@ class SearchViewModel(private val searchAPI: SearchAPI) : ViewModel() {
 
     fun searchByQuery(query: String) {
         viewModelScope.launch(Dispatchers.IO) {
-            searchAPI.execute("MCO", query)
+            searchAPI.execute(Constants.defaultSite, query)
                 .cachedIn(viewModelScope)
                 .distinctUntilChanged()
                 .collectLatest {

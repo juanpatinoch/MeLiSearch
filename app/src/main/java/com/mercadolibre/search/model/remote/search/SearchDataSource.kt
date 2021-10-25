@@ -26,7 +26,7 @@ class SearchDataSource(private val apiServices: ApiServices) {
                 }
             }
         } catch (e: Exception) {
-            Log.e("ERROR", e.message ?: "ERROR")
+            Log.e("searchByQuery", e.toString())
             return CustomResponse.Failure(e)
         }
     }
