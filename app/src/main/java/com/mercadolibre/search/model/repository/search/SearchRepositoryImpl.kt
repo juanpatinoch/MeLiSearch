@@ -14,6 +14,11 @@ class SearchRepositoryImpl(
     private val searchDataSource: SearchDataSource
 ) : SearchRepository {
 
+    /**
+     * Funcion utilizada para para hacer el llamado a la paginacion
+     * @param query producto que se va buscar
+     * @return Flow<PagingData<ResultsDto>> Retorna el resultado con Flow
+     */
     @ExperimentalPagingApi
     override suspend fun searchByQuery(
         query: String

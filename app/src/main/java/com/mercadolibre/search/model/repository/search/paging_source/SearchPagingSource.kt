@@ -10,11 +10,21 @@ import com.mercadolibre.search.utils.Constants
 import retrofit2.HttpException
 import java.io.IOException
 
+/**
+ * Clase utilizada para la paginación
+ * @param query producto que se va buscar,
+ * @param searchDataSource DataSource de search donde se va consumir el servicio
+ */
 class SearchPagingSource(
     private val query: String,
     private val searchDataSource: SearchDataSource,
 ) : PagingSource<Int, ResultsDto>() {
 
+    /**
+     * Funcion que retorna el numero de la pagina que se debe buscar
+     * @param state Estado de la paginacion
+     * @return Int -> numero de la pagina a consultar
+     */
     override fun getRefreshKey(state: PagingState<Int, ResultsDto>): Int? {
         return state.anchorPosition?.let {
             state.closestPageToPosition(it)?.prevKey?.plus(1)
@@ -22,6 +32,11 @@ class SearchPagingSource(
         }
     }
 
+    /**
+     * Funcion que hace un llamado a la API, enviando el numero de la paginacion
+     * @param params parametros para la paginacion
+     * @return LoadResult<Int, ResultsDto> Lista de resultados o error
+     */
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, ResultsDto> {
         return try {
             val pageNumber = params.key ?: 0

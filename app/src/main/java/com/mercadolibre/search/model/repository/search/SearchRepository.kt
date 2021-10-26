@@ -6,6 +6,9 @@ import kotlinx.coroutines.flow.Flow
 
 interface SearchRepository {
 
+    /**
+     * Funcion de la interfaz del repositorio para buscar un producto
+     */
     suspend fun searchByQuery(query: String): Flow<PagingData<ResultsDto>>
 
 }
