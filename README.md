@@ -35,7 +35,7 @@ Se utiliza para cargar las imágenes de los productos
 
 ### Instalación 🔧
 
-En la ruta_ files\ _se encuentra el archivo _app-debug.apk_ para instalar
+En la ruta _files/_se encuentra el archivo _app-debug.apk_ para instalar
 
 
 ### Prerrequisitos 📋
