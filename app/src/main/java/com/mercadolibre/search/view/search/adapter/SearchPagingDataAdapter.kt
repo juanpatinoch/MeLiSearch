@@ -24,6 +24,9 @@ import com.mercadolibre.search.model.dto.search.ResultsDto
 import com.mercadolibre.search.model.dto.search.ShippingDto
 import com.mercadolibre.search.utils.Utils
 
+/**
+ * Adapter para mostrar item de Search
+ */
 class SearchPagingDataAdapter(
     private val searchPagingDataAdapterInterface: SearchPagingDataAdapterInterface,
     private val context: Context
@@ -37,6 +40,7 @@ class SearchPagingDataAdapter(
         val item = getItem(position)!!
         val binding = holder.binding
 
+        //Se asignar todos los datos al layout para mostrar la info del producto
         binding.tvItemSearchTitle.text = item.title
         binding.tvItemSearchAmount.text =
             Utils.formatAmountToCurrency(item.price, item.currencyId)
@@ -44,15 +48,22 @@ class SearchPagingDataAdapter(
         setInstallments(item.installments, binding.tvItemSearchInstallments)
         setFreeShipping(item.shipping, binding.tvItemSearchShipping)
         setImage(binding.ivItemSearchThumbnail, binding.ivItemSearchRefresh, item.thumbnail)
+        //Evento para reintentar la carga de la imagen del producto
         binding.ivItemSearchRefresh.setOnClickListener {
             binding.ivItemSearchRefresh.visibility = View.GONE
             setImage(binding.ivItemSearchThumbnail, binding.ivItemSearchRefresh, item.thumbnail)
         }
+        //Evento que me envia al detalle del producto
         binding.clItemSearch.setOnClickListener {
             searchPagingDataAdapterInterface.onSearchPagingItemClick(item)
         }
     }
 
+    /**
+     * Funcion para mostrar el precio del producto sin descuento
+     * @param resultsDto producto
+     * @param tvOriginalAmount TextView
+     */
     private fun setStandardPrice(resultsDto: ResultsDto, tvOriginalAmount: TextView) {
         if (resultsDto.originalPrice != null) {
             Utils.setStrikethroughText(tvOriginalAmount)
@@ -64,6 +75,11 @@ class SearchPagingDataAdapter(
         }
     }
 
+    /**
+     * Funcion para mostrar el numero y valor de las cuotas para pago con TC
+     * @param installments dto de las cuotas de la TC
+     * @param tvInstallments TextView
+     */
     private fun setInstallments(installments: InstallmentsDto?, tvInstallments: TextView) {
         if (installments == null) {
             tvInstallments.visibility = View.GONE
@@ -82,6 +98,11 @@ class SearchPagingDataAdapter(
         }
     }
 
+    /**
+     * Funcion para mostrar si tiene envío gratis
+     * @param shipping dto de shippin
+     * @param tvShipping TextView
+     */
     private fun setFreeShipping(shipping: ShippingDto, tvShipping: TextView) {
         if (shipping.freeShipping) {
             tvShipping.text = context.getText(R.string.free_shipping)
@@ -91,11 +112,23 @@ class SearchPagingDataAdapter(
         }
     }
 
+    /**
+     * Funcion que carga la imagen del producto con Glide
+     * De no cargarse correctamente da la opcion de intentarlo de nuevo
+     * @param ivThumbnail ImageView donde se va mostrar la imagen del producto
+     * @param ivRefresh ImageView que se muestra cuando no carga correctamente a imagen del prod.
+     * @param uri Url de la imagen del producto
+     */
     private fun setImage(ivThumbnail: ImageView, ivRefresh: ImageView, uri: String) {
         Glide.with(context)
             .load(uri)
             .centerCrop()
             .listener(object : RequestListener<Drawable> {
+                /**
+                 * Funcion cuando falla la carga de la imagen
+                 * Nos da la opcion de reintentarlo
+                 * ivRefresh tiene un evento click que vuelve a intentar la carga
+                 */
                 override fun onLoadFailed(
                     e: GlideException?,
                     model: Any?,
@@ -135,10 +168,8 @@ class SearchViewHolder(val binding: ItemSearchBinding) :
 
 val USER_COMPARATOR = object : DiffUtil.ItemCallback<ResultsDto>() {
     override fun areItemsTheSame(oldItem: ResultsDto, newItem: ResultsDto): Boolean =
-        // User ID serves as unique ID
         oldItem.id == newItem.id
 
     override fun areContentsTheSame(oldItem: ResultsDto, newItem: ResultsDto): Boolean =
-        // Compare full contents (note: Java users should call .equals())
         oldItem == newItem
 }
