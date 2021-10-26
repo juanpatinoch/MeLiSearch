@@ -27,7 +27,6 @@ class SearchDataSource(private val apiServices: ApiServices) {
         try {
             apiServices.search(query, limit, offset).run {
                 return when {
-
                     isSuccessful && body() != null -> {
                         CustomResponse.Success(body() as SearchResponseDto)
                     }

@@ -1,8 +1,11 @@
 package com.mercadolibre.search
 
+import androidx.paging.PagingData
 import com.mercadolibre.search.model.dto.error.ErrorDto
 import com.mercadolibre.search.model.dto.paging.PagingDto
 import com.mercadolibre.search.model.dto.search.*
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flowOf
 import java.util.*
 
 object MockData {
@@ -50,7 +53,12 @@ object MockData {
                 )
             )
         )
+    )
 
+    val mockPagingData: Flow<PagingData<ResultsDto>> = flowOf(
+        PagingData.from(
+            mockSearchResultsDto.results
+        )
     )
 
 }

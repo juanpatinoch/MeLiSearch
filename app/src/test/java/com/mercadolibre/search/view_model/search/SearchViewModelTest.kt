@@ -51,7 +51,6 @@ class SearchViewModelTest {
     @Test
     fun nada(){
         //given
-        //given()
 
         //when
 
