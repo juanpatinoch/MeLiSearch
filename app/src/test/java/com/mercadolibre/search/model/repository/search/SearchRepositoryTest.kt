@@ -36,7 +36,7 @@ class SearchRepositoryTest {
     }
 
     @Test
-    fun searchPagingSuccess() {
+    fun searchRepositoryPagingSuccess() {
         runBlocking {
 
             val expected = Response.success(MockData.mockSearchResultsDto)

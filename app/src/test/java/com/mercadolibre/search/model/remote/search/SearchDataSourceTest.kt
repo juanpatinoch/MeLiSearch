@@ -34,7 +34,7 @@ class SearchDataSourceTest {
     }
 
     @Test
-    fun searchSuccess() {
+    fun searchRemoteSuccess() {
         runBlocking {
             val expected = Response.success(MockData.mockSearchResultsDto)
 
@@ -60,7 +60,7 @@ class SearchDataSourceTest {
     }
 
     @Test
-    fun searchFailure() {
+    fun searchRemoteFailure() {
         runBlocking {
 
             val jsonObject = JSONObject()

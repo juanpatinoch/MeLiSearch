@@ -1,13 +1,15 @@
 package com.mercadolibre.search.view_model.search
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import androidx.lifecycle.Observer
-import androidx.paging.PagingData
+import androidx.paging.map
 import com.mercadolibre.search.MainCoroutineRule
-import com.mercadolibre.search.model.dto.search.ResultsDto
+import com.mercadolibre.search.MockData
+import com.mercadolibre.search.getOrAwaitValue
 import com.mercadolibre.search.use_cases.SearchAPI
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import org.junit.After
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.runBlocking
+import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -30,9 +32,6 @@ class SearchViewModelTest {
     @Mock
     lateinit var searchAPI: SearchAPI
 
-    @Mock
-    lateinit var pagingDataObserver: Observer<PagingData<ResultsDto>>
-
     private lateinit var searchViewModel: SearchViewModel
 
     @Before
@@ -40,21 +39,31 @@ class SearchViewModelTest {
         searchViewModel = SearchViewModel(
             searchAPI
         )
-        searchViewModel.pagingData.observeForever(pagingDataObserver)
-    }
-
-    @After
-    fun tearDown() {
-        searchViewModel.pagingData.removeObserver(pagingDataObserver)
     }
 
     @Test
-    fun nada(){
-        //given
+    fun searchViewModelSuccess() {
+        runBlocking {
+            val expected = MockData.mockPagingData
+            //given
+            given(searchAPI.execute(MockData.mockDataQuery)).willReturn(expected)
 
-        //when
+            //when
+            searchViewModel.searchByQuery(MockData.mockDataQuery)
 
-        //then
+            //then
+            searchViewModel.pagingData.getOrAwaitValue(afterObserve = { pagingDataResult ->
+                if (pagingDataResult != null)
+                    runBlocking {
+                        expected.collect { pagingDataExpected ->
+                            assertEquals(
+                                pagingDataExpected.map { it.id },
+                                pagingDataResult.map { it.id }
+                            )
+                        }
+                    }
+            })
+        }
     }
 
 }
