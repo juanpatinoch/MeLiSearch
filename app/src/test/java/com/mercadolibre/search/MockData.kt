@@ -1,5 +1,6 @@
 package com.mercadolibre.search
 
+import com.mercadolibre.search.model.dto.error.ErrorDto
 import com.mercadolibre.search.model.dto.paging.PagingDto
 import com.mercadolibre.search.model.dto.search.*
 import java.util.*
@@ -11,6 +12,12 @@ object MockData {
     val mockDataLimit = Random().nextInt()
 
     val mockDataOffset = Random().nextInt()
+
+    val mockErrorDto = ErrorDto(
+        errorMessage = UUID.randomUUID().toString().substring(0, 15),
+        errorText = UUID.randomUUID().toString().substring(0, 15),
+        errorStatus = Random().nextInt()
+    )
 
     val mockSearchResultsDto = SearchResponseDto(
         paging = PagingDto(

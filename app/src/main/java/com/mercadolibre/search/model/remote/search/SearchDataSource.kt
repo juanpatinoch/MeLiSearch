@@ -1,10 +1,10 @@
 package com.mercadolibre.search.model.remote.search
 
 import android.util.Log
-import com.mercadolibre.search.model.dto.error.ErrorDto
 import com.mercadolibre.search.model.dto.response.CustomResponse
 import com.mercadolibre.search.model.dto.search.SearchResponseDto
 import com.mercadolibre.search.model.remote.ApiServices
+import com.mercadolibre.search.utils.Utils
 
 /**
  * DataSource del modulo Search
@@ -27,12 +27,13 @@ class SearchDataSource(private val apiServices: ApiServices) {
         try {
             apiServices.search(query, limit, offset).run {
                 return when {
+
                     isSuccessful && body() != null -> {
                         CustomResponse.Success(body() as SearchResponseDto)
                     }
                     else -> {
                         Log.e("searchByQuery", errorBody().toString())
-                        CustomResponse.Failure(errorBody() as ErrorDto)
+                        CustomResponse.Failure(Utils.convertToError(errorBody()))
                     }
                 }
             }

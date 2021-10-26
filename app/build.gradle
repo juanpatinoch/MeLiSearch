@@ -34,6 +34,10 @@ android {
     dataBinding {
         enabled = true;
     }
+
+    testOptions {
+        unitTests.returnDefaultValues = true
+    }
 }
 
 dependencies {
@@ -80,6 +84,7 @@ dependencies {
     testImplementation 'org.mockito.kotlin:mockito-kotlin:3.2.0'
     testImplementation 'org.jetbrains.kotlinx:kotlinx-coroutines-test:1.3.9'
     testImplementation 'androidx.arch.core:core-testing:2.1.0'
+    testImplementation 'org.json:json:20210307'
     //testImplementation 'org.mockito:mockito-inline:4.13.2'
 
 
