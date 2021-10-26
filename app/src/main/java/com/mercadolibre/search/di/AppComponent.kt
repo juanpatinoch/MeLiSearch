@@ -7,7 +7,6 @@ import com.mercadolibre.search.view_model.search.SearchViewModel
 import org.koin.android.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
-
 val searchModule = module {
     factory { SearchAPI(get()) }
     viewModel { SearchViewModel(get()) }

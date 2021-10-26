@@ -5,6 +5,7 @@ import android.content.Context
 import android.graphics.Paint
 import android.graphics.drawable.Drawable
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -103,6 +104,7 @@ class ProductDetailActivity : AppCompatActivity() {
                     target: Target<Drawable>?,
                     isFirstResource: Boolean
                 ): Boolean {
+                    Log.e("GlideException", e.toString())
                     binding.ivProductDetailRefresh.visibility = View.VISIBLE
                     return true
                 }

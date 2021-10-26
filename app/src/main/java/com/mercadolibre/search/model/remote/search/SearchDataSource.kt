@@ -21,6 +21,7 @@ class SearchDataSource(private val apiServices: ApiServices) {
                         CustomResponse.Success(body() as SearchResponseDto)
                     }
                     else -> {
+                        Log.e("searchByQuery", errorBody().toString())
                         CustomResponse.Failure(errorBody() as ErrorDto)
                     }
                 }
