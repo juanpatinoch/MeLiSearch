@@ -6,8 +6,19 @@ import com.mercadolibre.search.model.dto.response.CustomResponse
 import com.mercadolibre.search.model.dto.search.SearchResponseDto
 import com.mercadolibre.search.model.remote.ApiServices
 
+/**
+ * DataSource del modulo Search
+ * @param apiServices -> Interfaz para las peticiones API
+ */
 class SearchDataSource(private val apiServices: ApiServices) {
 
+    /**
+     * Funcion utilizada para traer un listado de productos
+     * @param total -> total de registros que devuelve
+     * @param offset -> a partir de que posicion estan los resultados
+     * @param limit -> cantidad de resultados que trae la lista
+     * @return CustomResponse<SearchResponseDto>
+     */
     suspend fun searchByQuery(
         query: String,
         limit: Int,

@@ -11,6 +11,12 @@ import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import java.util.concurrent.TimeUnit
 
+/**
+ * Se crea un nuevo modulo para el DataSource
+ * Con single creamos un singleton de cada instancia
+ * Con factory se crea la instancia del DataSource de Search
+ * @param baseUrl -> Url base que le enviamos a Retrofit para las peticiones
+ */
 fun createRemoteModule(baseUrl: String) = module {
 
     single { createService(get()) }
@@ -27,10 +33,20 @@ fun createRemoteModule(baseUrl: String) = module {
 
 }
 
+/**
+ * Se crea el servicio para Retrofit
+ * @param retrofit -> instancia creada de Retrofit
+ */
 fun createService(retrofit: Retrofit): ApiServices {
     return retrofit.create(ApiServices::class.java)
 }
 
+/**
+ * Crea una nueva instancia de Retrofit
+ * A traves de Retrofit se hacen las peticiones de la API
+ * @param okHttpClient -> cliente para Retrofit
+ * @param url -> url base para hacer las peticiones a la API
+ */
 fun createRetrofit(okHttpClient: OkHttpClient, url: String): Retrofit {
     return Retrofit.Builder()
         .baseUrl(url)
@@ -40,6 +56,10 @@ fun createRetrofit(okHttpClient: OkHttpClient, url: String): Retrofit {
         .build()
 }
 
+/**
+ * Crea una nueva instancia de OkHttp
+ * Utilizado como cliente de Retrofit
+ */
 fun createOkHttpClient(): OkHttpClient {
     return OkHttpClient.Builder().apply {
         readTimeout(30L, TimeUnit.SECONDS)
@@ -51,10 +71,17 @@ fun createOkHttpClient(): OkHttpClient {
     }.build()
 }
 
+/**
+ * Se crea una instancia para MoshiConverterFactory
+ * Convierte las respuestas de JSON a Dto
+ */
 fun createMoshiConverterFactory(): MoshiConverterFactory {
     return MoshiConverterFactory.create()
 }
 
+/**
+ * Se crea una instancia para Moshi
+ */
 fun createMoshi(): Moshi {
     return Moshi.Builder().build()
 }

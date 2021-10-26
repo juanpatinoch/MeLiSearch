@@ -4,6 +4,11 @@ import com.mercadolibre.search.model.dto.paging.PagingDto
 import com.squareup.moshi.Json
 import java.io.Serializable
 
+/**
+ * Dto utilizado para la respuesta del servicio de Search
+ * @param paging -> Aqui van los datos de la paginación
+ * @param results -> Aqui va la lista de prodcutos que retorna la busqueda
+ */
 data class SearchResponseDto(
     @field:Json(name = "paging") val paging: PagingDto,
     @field:Json(name = "results") val results: List<ResultsDto>
