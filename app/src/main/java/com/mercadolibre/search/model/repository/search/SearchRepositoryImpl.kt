@@ -16,14 +16,12 @@ class SearchRepositoryImpl(
 
     @ExperimentalPagingApi
     override suspend fun searchByQuery(
-        siteId: String,
         query: String
     ): Flow<PagingData<ResultsDto>> {
         return Pager(
             config = Constants.PAGING_CONFIG,
             pagingSourceFactory = {
                 SearchPagingSource(
-                    siteId = siteId,
                     query = query,
                     searchDataSource = searchDataSource,
                 )

@@ -5,7 +5,6 @@ import androidx.paging.PagingConfig
 object Constants {
     const val baseUrl = "https://api.mercadolibre.com"
     const val pagingPageSize = 10
-    const val defaultSite = "MCO"
 
     val PAGING_CONFIG = PagingConfig(pageSize = pagingPageSize, enablePlaceholders = false)
 

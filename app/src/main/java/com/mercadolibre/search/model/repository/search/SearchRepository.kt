@@ -6,6 +6,6 @@ import kotlinx.coroutines.flow.Flow
 
 interface SearchRepository {
 
-    suspend fun searchByQuery(siteId: String, query: String): Flow<PagingData<ResultsDto>>
+    suspend fun searchByQuery(query: String): Flow<PagingData<ResultsDto>>
 
 }

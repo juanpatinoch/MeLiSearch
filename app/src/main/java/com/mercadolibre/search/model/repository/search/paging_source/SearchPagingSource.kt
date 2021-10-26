@@ -11,7 +11,6 @@ import retrofit2.HttpException
 import java.io.IOException
 
 class SearchPagingSource(
-    private val siteId: String,
     private val query: String,
     private val searchDataSource: SearchDataSource,
 ) : PagingSource<Int, ResultsDto>() {
@@ -27,7 +26,6 @@ class SearchPagingSource(
         return try {
             val pageNumber = params.key ?: 1
             val response = searchDataSource.searchByQuery(
-                siteId,
                 query,
                 Constants.pagingPageSize,
                 pageNumber * Constants.pagingPageSize

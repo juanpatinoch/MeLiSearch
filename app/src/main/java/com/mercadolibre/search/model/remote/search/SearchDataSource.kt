@@ -9,13 +9,12 @@ import com.mercadolibre.search.model.remote.ApiServices
 class SearchDataSource(private val apiServices: ApiServices) {
 
     suspend fun searchByQuery(
-        siteId: String,
         query: String,
         limit: Int,
         offset: Int
     ): CustomResponse<SearchResponseDto> {
         try {
-            apiServices.search(siteId, query, limit, offset).run {
+            apiServices.search(query, limit, offset).run {
                 return when {
                     isSuccessful && body() != null -> {
                         CustomResponse.Success(body() as SearchResponseDto)

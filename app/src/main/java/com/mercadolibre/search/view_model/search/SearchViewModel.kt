@@ -23,7 +23,7 @@ class SearchViewModel(private val searchAPI: SearchAPI) : ViewModel() {
 
     fun searchByQuery(query: String) {
         viewModelScope.launch(Dispatchers.IO) {
-            searchAPI.execute(Constants.defaultSite, query)
+            searchAPI.execute(query)
                 .cachedIn(viewModelScope)
                 .distinctUntilChanged()
                 .collectLatest {
