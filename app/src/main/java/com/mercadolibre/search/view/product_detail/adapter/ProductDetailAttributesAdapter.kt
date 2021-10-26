@@ -8,6 +8,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.mercadolibre.search.databinding.ItemAttributesBinding
 import com.mercadolibre.search.model.dto.search.AttributesDto
 
+/**
+ * Adapter para mostrar el listado de atributos de un producto
+ */
 class ProductDetailAttributesAdapter() :
     ListAdapter<AttributesDto, AttributesViewHolder>(AttributeDiffCallback()) {
 
