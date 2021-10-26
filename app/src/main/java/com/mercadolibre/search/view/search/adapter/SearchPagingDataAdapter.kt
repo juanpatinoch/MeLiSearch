@@ -36,6 +36,7 @@ class SearchPagingDataAdapter(
     override fun onBindViewHolder(holder: SearchViewHolder, position: Int) {
         val item = getItem(position)!!
         val binding = holder.binding
+
         binding.tvItemSearchTitle.text = item.title
         binding.tvItemSearchAmount.text =
             Utils.formatAmountToCurrency(item.price, item.currencyId)
@@ -54,9 +55,9 @@ class SearchPagingDataAdapter(
 
     private fun setStandardPrice(resultsDto: ResultsDto, tvOriginalAmount: TextView) {
         if (resultsDto.originalPrice != null) {
+            Utils.setStrikethroughText(tvOriginalAmount)
             tvOriginalAmount.text =
                 Utils.formatAmountToCurrency(resultsDto.originalPrice, resultsDto.currencyId)
-            tvOriginalAmount.paint.flags = Paint.STRIKE_THRU_TEXT_FLAG
             tvOriginalAmount.visibility = View.VISIBLE
         } else {
             tvOriginalAmount.visibility = View.GONE

@@ -24,7 +24,7 @@ class SearchPagingSource(
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, ResultsDto> {
         return try {
-            val pageNumber = params.key ?: 1
+            val pageNumber = params.key ?: 0
             val response = searchDataSource.searchByQuery(
                 query,
                 Constants.pagingPageSize,

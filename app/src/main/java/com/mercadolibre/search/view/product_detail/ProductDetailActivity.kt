@@ -2,7 +2,6 @@ package com.mercadolibre.search.view.product_detail
 
 import android.app.SearchManager
 import android.content.Context
-import android.graphics.Paint
 import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.util.Log
@@ -48,24 +47,22 @@ class ProductDetailActivity : AppCompatActivity() {
     }
 
     private fun setUiData() {
-        binding.apply {
-            setStandardPrice()
-            setInstallments()
-            setShipping()
-            setImage()
-            layoutAppbar.tvSearchTitle.text = getString(R.string.product_detail_title).uppercase()
-            tvProductDetailName.text = resultsDto.title
-            tvProductDetailPrice.text =
-                Utils.formatAmountToCurrency(resultsDto.price, resultsDto.currencyId)
-
-        }
+        setStandardPrice()
+        setInstallments()
+        setShipping()
+        setImage()
+        binding.layoutAppbar.tvSearchTitle.text =
+            getString(R.string.product_detail_title).uppercase()
+        binding.tvProductDetailName.text = resultsDto.title
+        binding.tvProductDetailPrice.text =
+            Utils.formatAmountToCurrency(resultsDto.price, resultsDto.currencyId)
     }
 
     private fun setStandardPrice() {
         if (resultsDto.originalPrice != null) {
+            Utils.setStrikethroughText(binding.tvProductDetailStandardPrice)
             binding.tvProductDetailStandardPrice.text =
                 Utils.formatAmountToCurrency(resultsDto.originalPrice!!, resultsDto.currencyId)
-            binding.tvProductDetailStandardPrice.paint.flags = Paint.STRIKE_THRU_TEXT_FLAG
         } else {
             binding.tvProductDetailStandardPrice.visibility = View.GONE
         }
@@ -124,16 +121,13 @@ class ProductDetailActivity : AppCompatActivity() {
 
     private fun setupRecyclerView() {
         val adapter = ProductDetailAttributesAdapter()
-        binding.apply {
-            rvProductDetail.adapter = adapter
-            rvProductDetail.layoutManager = LinearLayoutManager(this@ProductDetailActivity)
-            adapter.submitList(resultsDto.attributes)
-        }
+        binding.rvProductDetail.adapter = adapter
+        binding.rvProductDetail.layoutManager = LinearLayoutManager(this@ProductDetailActivity)
+        adapter.submitList(resultsDto.attributes)
     }
 
     private fun setListeners() {
-        val searchManager = getSystemService(Context.SEARCH_SERVICE) as SearchManager
-        searchManager.setOnDismissListener {
+        (getSystemService(Context.SEARCH_SERVICE) as SearchManager).setOnDismissListener {
             binding.svProductDetailContent.visibility = View.VISIBLE
             isSearchOpen = false
         }

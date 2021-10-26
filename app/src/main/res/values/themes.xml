@@ -16,32 +16,9 @@
         <item name="android:textSize">@dimen/text_description_size</item>
         <!-- Background default -->
         <item name="android:windowBackground">@color/white</item>
-        <!-- BottomSheet Style -->
-        <item name="bottomSheetDialogTheme">@style/AppBottomSheetDialogTheme</item>
         <!-- Font family -->
         <item name="android:fontFamily">@font/inter</item>
         <!-- Disabled dark mode -->
         <item name="android:forceDarkAllowed" tools:targetApi="q">false</item>
-    </style>
-
-    <style name="AppBottomSheetDialogTheme" parent="Theme.Design.Light.BottomSheetDialog">
-        <item name="colorPrimary">@color/yellow_2</item>
-        <item name="colorPrimaryDark">@color/yellow_1</item>
-        <item name="colorAccent">@color/yellow_2</item>
-        <item name="bottomSheetStyle">@style/AppModalStyle</item>
-    </style>
-
-    <style name="AppModalStyle" parent="Widget.Design.BottomSheet.Modal">
-        <item name="android:background">@drawable/background_bottom_sheet</item>
-    </style>
-
-    <style name="TextInputLayoutStyle" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
-        <item name="boxStrokeColor">@color/white</item>
-        <item name="hintTextColor">@color/gray_3</item>
-    </style>
-
-    <style name="TextInputEditText">
-        <item name="android:textSize">@dimen/text_description_size</item>
-        <item name="android:textColor">@color/gray_2</item>
     </style>
 </resources>

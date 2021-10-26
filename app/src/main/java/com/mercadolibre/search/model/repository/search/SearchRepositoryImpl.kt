@@ -25,7 +25,7 @@ class SearchRepositoryImpl(
                     query = query,
                     searchDataSource = searchDataSource,
                 )
-            },
+            }
         ).flow
     }
 }

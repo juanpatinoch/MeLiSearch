@@ -5,7 +5,6 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.os.Parcelable
-import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
@@ -61,92 +60,27 @@ class SearchActivity : AppCompatActivity(), SearchPagingDataAdapterInterface {
                     loadState.refresh is LoadState.Error -> loadState.refresh as LoadState.Error
                     else -> null
                 }
+
                 if (loadState.refresh is LoadState.Loading) {
                     showLoading()
-                    Log.e("loadState", "showLoading")
                 }
+
                 if (error != null) {
                     binding.tvError.text =
                         String.format(getString(R.string.search_error), error.error.message)
                     showError()
-                    Log.e("loadState", "showError")
                 } else if (loadState.append.endOfPaginationReached && adapter.itemCount > 0) {
                     hideLoading()
-                    Log.e("loadState", "hideLoading")
                 } else if (loadState.append.endOfPaginationReached && adapter.itemCount == 0) {
                     showEmptyState()
-                    Log.e("loadState", "showEmptyState")
                 }
             }
         }
     }
 
-    private fun showLoading() {
-        binding.apply {
-            showRecyclerView()
-            hideEmptyState()
-            hideError()
-            pbSearch.visibility = View.VISIBLE
-        }
-    }
-
-    private fun hideLoading() {
-        binding.apply {
-            showRecyclerView()
-            hideEmptyState()
-            hideError()
-            pbSearch.visibility = View.GONE
-        }
-    }
-
-    private fun showRecyclerView() {
-        binding.apply {
-            hideEmptyState()
-            hideError()
-            clRecyclerView.visibility = View.VISIBLE
-        }
-    }
-
-    private fun hideRecyclerView() {
-        binding.apply {
-            clRecyclerView.visibility = View.GONE
-        }
-    }
-
-    private fun showError() {
-        binding.apply {
-            hideEmptyState()
-            hideRecyclerView()
-            clError.visibility = View.VISIBLE
-        }
-    }
-
-    private fun hideError() {
-        binding.apply {
-            clError.visibility = View.GONE
-        }
-    }
-
-    private fun showEmptyState() {
-        binding.apply {
-            hideError()
-            hideRecyclerView()
-            clEmptyState.visibility = View.VISIBLE
-        }
-    }
-
-    private fun hideEmptyState() {
-        binding.apply {
-            clEmptyState.visibility = View.GONE
-        }
-    }
-
-
     private fun setupRecyclerView() {
-        binding.apply {
-            rvSearchItems.adapter = adapter
-            rvSearchItems.layoutManager = LinearLayoutManager(this@SearchActivity)
-        }
+        binding.rvSearchItems.adapter = adapter
+        binding.rvSearchItems.layoutManager = LinearLayoutManager(this@SearchActivity)
     }
 
     private fun startObserver() {
@@ -165,8 +99,7 @@ class SearchActivity : AppCompatActivity(), SearchPagingDataAdapterInterface {
     }
 
     private fun setListeners() {
-        val searchManager = getSystemService(Context.SEARCH_SERVICE) as SearchManager
-        searchManager.setOnDismissListener {
+        (getSystemService(Context.SEARCH_SERVICE) as SearchManager).setOnDismissListener {
             binding.clSearchContent.visibility = View.VISIBLE
             isSearchOpen = false
         }
@@ -184,7 +117,6 @@ class SearchActivity : AppCompatActivity(), SearchPagingDataAdapterInterface {
 
     private fun handlePagingData(pagingData: PagingData<ResultsDto>) {
         lifecycleScope.launch {
-            Log.d("handlePagingData", "Llega data")
             adapter.submitData(pagingData)
         }
     }
@@ -218,5 +150,51 @@ class SearchActivity : AppCompatActivity(), SearchPagingDataAdapterInterface {
         isSearchOpen = savedInstanceState.getBoolean(Constants.searchIsSearchOpen)
         if (isSearchOpen)
             onSearchRequested()
+    }
+
+    private fun showLoading() {
+        binding.apply {
+            showRecyclerView()
+            hideEmptyState()
+            hideError()
+            pbSearch.visibility = View.VISIBLE
+        }
+    }
+
+    private fun hideLoading() {
+        showRecyclerView()
+        hideEmptyState()
+        hideError()
+        binding.pbSearch.visibility = View.GONE
+    }
+
+    private fun showRecyclerView() {
+        hideEmptyState()
+        hideError()
+        binding.clRecyclerView.visibility = View.VISIBLE
+    }
+
+    private fun hideRecyclerView() {
+        binding.clRecyclerView.visibility = View.GONE
+    }
+
+    private fun showError() {
+        hideEmptyState()
+        hideRecyclerView()
+        binding.clError.visibility = View.VISIBLE
+    }
+
+    private fun hideError() {
+        binding.clError.visibility = View.GONE
+    }
+
+    private fun showEmptyState() {
+        hideError()
+        hideRecyclerView()
+        binding.clEmptyState.visibility = View.VISIBLE
+    }
+
+    private fun hideEmptyState() {
+        binding.clEmptyState.visibility = View.GONE
     }
 }

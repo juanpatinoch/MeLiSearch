@@ -41,8 +41,7 @@ class HomeActivity : AppCompatActivity() {
     }
 
     private fun setListeners() {
-        val searchManager = getSystemService(Context.SEARCH_SERVICE) as SearchManager
-        searchManager.setOnDismissListener {
+        (getSystemService(Context.SEARCH_SERVICE) as SearchManager).setOnDismissListener {
             binding.clContent.visibility = View.VISIBLE
             isSearchOpen = false
         }
