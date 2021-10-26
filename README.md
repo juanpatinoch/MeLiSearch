@@ -26,10 +26,10 @@ Nos sirve de log interceptor para las peticiones a la API
 #### Koin
 Para realizar la inyección de dependencias de todo el proyecto
 
-####Paging3
+#### Paging3
 Librería oficial de Android, utilizada para mostrar el listado de resultados con paginación
 
-####Glade
+#### Glade
 Se utiliza para cargar las imágenes de los productos
 
 
